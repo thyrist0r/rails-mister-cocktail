@@ -1,5 +1,6 @@
 require 'open-uri'
 
+Cocktial.destroy_all
 Dose.destroy_all
 Ingredient.destroy_all
 
