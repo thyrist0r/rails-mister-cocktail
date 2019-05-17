@@ -1,8 +1,24 @@
-<h1><%=  @cocktail.name %></h1>
-<% if @cocktail.ingredients.name.nil? %>
-  <p> no ingredients set</p>
-<% else  %>
-  <p> <%= @cocktail.ingredients.name %></p>
-<%end %>
+<div class="container">
+  <h1><%=  @cocktail.name %></h1>
+  <h2>Current Ingredients</h2>
+  <ul>
+  <% @cocktail.doses.each do |dose| %>
+    <li> <%=  dose.ingredient.name  %>
+    <%= dose.description  %> <%= link_to "edit", edit_cocktail_dose_path(@cocktail,dose)  %> <%= link_to "delete", dose_path(dose), method: :delete  %></li>
+  <% end %>
+  </ul>
 
-<%= link_to "Add an ingredient", new_cocktail_dose_path(@cocktail) %>
+  <br>
+  <br>
+  <%= link_to "Back to the List of Cocktails", cocktails_path %>
+  <br>
+  <br>
+
+  <h3>
+  <%= link_to "Add a dose of ingredient", new_cocktail_dose_path(@cocktail) %>
+  </h3>
+
+  <h3>
+  <%= link_to "Delete the whole Cocktail", cocktail_path(@cocktail), method: :delete %>
+  </h3>
+</div>
