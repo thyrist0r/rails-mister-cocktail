@@ -1,18 +1,23 @@
 <div class="container">
-  <% if @cocktail.photo.present? %>
-    <%= cl_image_tag @cocktail.photo, width: 400, height: 300, crop: :fill %>
-  <% end %>
+  <div class="card" style="width: 25rem;">
+    <% if @cocktail.photo.present? %>
+      <%= cl_image_tag @cocktail.photo, class: "card-img-top", width: 250, height: 250 %>
+    <% else %>
+      <img src="https://images.unsplash.com/photo-1468072114808-903e572b8ead?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1866&q=80" class="card-img-top" alt="...">
+    <% end %>
+    <div class="card-body">
+      <h1 class="card-text"><%=  @cocktail.name %></h1> <p> <%= link_to "Edit Cocktail", edit_cocktail_path(@cocktail) %> </p>
+      <h2 class="card-text">Current Ingredients</h2>
+      <ul class="card-text">
+        <% @cocktail.doses.each do |dose| %>
+        <li> <%=  dose.ingredient.name  %>
+        <%= dose.description  %> <%= link_to "edit", edit_cocktail_dose_path(@cocktail,dose)  %> <%= link_to "delete", dose_path(dose), method: :delete  %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>
-<div class="container">
-  <h1><%=  @cocktail.name %></h1> <p> <%= link_to "Edit Cocktail", edit_cocktail_path(@cocktail) %> </p>
-  <h2>Current Ingredients</h2>
-  <ul>
-  <% @cocktail.doses.each do |dose| %>
-    <li> <%=  dose.ingredient.name  %>
-    <%= dose.description  %> <%= link_to "edit", edit_cocktail_dose_path(@cocktail,dose)  %> <%= link_to "delete", dose_path(dose), method: :delete  %></li>
-  <% end %>
-  </ul>
-</div>
+
 
 <div class="container">
   <br>
